@@ -11,11 +11,11 @@ It includes a **Status App** for managing status entries (or similar entities), 
 
 project-root/
 │
+├── core                 # Proejct folder
 ├── status/              # Django app: Status API
 ├── manage.py
 ├── requirements.txt     # List of Python dependencies
-├── db.sqlite3           # SQLite database (default)
-└── ...
+└── db.sqlite3           # SQLite database (default)
 
 ````
 
