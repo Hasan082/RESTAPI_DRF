@@ -1,6 +1,7 @@
 from django.urls import path
-from . import views
+from .views import StatusView
+
 
 urlpatterns = [
-    path('status/', views.status, name='status'),
+    path('all/', StatusView.as_view(), name='status_list'),
 ]
