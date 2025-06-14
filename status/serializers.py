@@ -2,9 +2,15 @@ from rest_framework import serializers
 from .models import Status
 
 
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Status.user.field.related_model
+        fields = ('id', 'username', 'email')
+
        
 class StatusSerializer(serializers.ModelSerializer):
+    user = UserSerializer(many=False)
     class Meta:
         model = Status
-        fields = "__all__"
+        fields = ('id', 'text', 'image_link', 'created_at', 'user', 'is_active', 'is_private')
         read_only_fields = ('created_at', 'user')
