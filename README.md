@@ -1,17 +1,12 @@
-Here’s a clean and professional **`README.md`** template for your **Django REST Framework (DRF)** API project called **Status App**:
 
----
-
-```markdown
 # 🚀 REST API Development with Django REST Framework (DRF)
 
 This project is a RESTful API built using **Django** and **Django REST Framework (DRF)**.  
 It includes a **Status App** for managing status entries (or similar entities), designed to be scalable, modular, and easy to extend.
 
----
+
 
 ## 📂 Project Structure
-
 ```
 
 project-root/
