@@ -1,10 +1,11 @@
 from rest_framework import serializers
 from .models import Status
+from django.contrib.auth.models import User
 
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Status.user.field.related_model
+        model = User()
         fields = ('id', 'username', 'email')
 
        
