@@ -3,5 +3,9 @@ from status.views import StatusView
 
 
 urlpatterns = [
-    path('status/<id:str>/', StatusView.as_view(), name='status_list'),
+    path('status/', StatusView.as_view(), name='status_list'),
+    path('status/<int:id>/', StatusView.as_view(), name='status_single'),
 ]
+
+
+# List, Create API View (Part 1)
