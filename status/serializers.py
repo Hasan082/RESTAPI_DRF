@@ -10,8 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
        
 class StatusSerializer(serializers.ModelSerializer):
-    user = UserSerializer(many=False)
+    # user = UserSerializer(many=False) # Nested serializer to include user details
     class Meta:
         model = Status
         fields = ('id', 'text', 'image_link', 'created_at', 'user', 'is_active', 'is_private')
-        read_only_fields = ('created_at', 'user')
