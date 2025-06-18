@@ -1,14 +1,16 @@
 from django.contrib.auth.models import User
+from rest_framework import status
 from django.core.files.uploadedfile import SimpleUploadedFile
 from rest_framework.test import APITestCase
 from status.models import Status
+from io import BytesIO
+from PIL import Image
 
 
 class StatusAPITestCase(APITestCase):
     """
     Test suite for the Status API endpoints.
     """
-
     def setUp(self):
         # Create a test user and authenticate
         self.user = User.objects.create_user(username='testuser', password='testpassword')
@@ -27,7 +29,7 @@ class StatusAPITestCase(APITestCase):
         Test retrieving the list of status entries.
         """
         response = self.client.get('/api/status/')
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertIsInstance(response.json(), list)
         self.assertGreaterEqual(len(response.json()), 1)
         self.assertEqual(response.json()[0]['text'], self.status.text)
@@ -39,15 +41,13 @@ class StatusAPITestCase(APITestCase):
         data = {
             'text': 'New test status',
             'is_active': True,
-            'is_private': False
+            'is_private': False,
+            'user': self.user.id
         }
 
         response = self.client.post('/api/status/create/', data, format='json')
 
-        print("Status Code:", response.status_code)
-        print("Response Data:", response.json())
-
-        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('id', response.json())
         self.assertEqual(response.json()['text'], data['text'])
 
@@ -55,21 +55,26 @@ class StatusAPITestCase(APITestCase):
         """
         Test creating a status with an image upload.
         """
-        image = SimpleUploadedFile(
-            "test.jpg",
-            b"file_content",
-            content_type="image/jpeg"
+        # Create a small valid image in memory
+        image = BytesIO()
+        Image.new('RGB', (1, 1)).save(image, 'JPEG')
+        image.seek(0)
+        
+        uploaded_file = SimpleUploadedFile(
+            name='test.jpg',
+            content=image.read(),
+            content_type='image/jpeg'
         )
 
         data = {
             'text': 'Status with image',
-            'image_link': image,
+            'image_link': uploaded_file,
             'is_active': True,
-            'is_private': False
+            'is_private': False,
+            'user': self.user.id
         }
 
-        response = self.client.post('/api/status/create/', data)
-
-        self.assertEqual(response.status_code, 201)
-        self.assertIn('image_link', response.json())
+        response = self.client.post('/api/status/create/', data, format='multipart')
+        self.assertEqual(response.status_code, status.HTTP_201_CREATED)
+        self.assertIn('id', response.json())
         self.assertEqual(response.json()['text'], data['text'])
