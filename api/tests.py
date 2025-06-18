@@ -50,6 +50,7 @@ class StatusAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('id', response.json())
         self.assertEqual(response.json()['text'], data['text'])
+        
 
     def test_status_create_with_image(self):
         """
@@ -78,3 +79,31 @@ class StatusAPITestCase(APITestCase):
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertIn('id', response.json())
         self.assertEqual(response.json()['text'], data['text'])
+        
+        
+    def test_status_update(self):
+        """
+        Test updating an existing status entry via the API.
+        """
+        data = {
+            'text': 'Updated test status',
+            'is_active': False,
+            'is_private': True
+        }
+
+        response = self.client.patch(f'/api/status/update/{self.status.id}/', data, format='json')
+
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.status.refresh_from_db()
+        self.assertEqual(self.status.text, data['text'])
+        self.assertFalse(self.status.is_active)
+        self.assertTrue(self.status.is_private)
+        
+        
+    def test_status_delete(self):
+        """Test deleting an existing status entry via the API.
+        """
+        response = self.client.delete(f'/api/status/delete/{self.status.id}/')
+
+        self.assertEqual(response.status_code, status.HTTP_204_NO_CONTENT)
+        self.assertFalse(Status.objects.filter(id=self.status.id).exists())
