@@ -1,10 +1,71 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import generics
+from rest_framework import generics, mixins
+from rest_framework import status
 from rest_framework.response import Response
 
 from .models import Status
 from .serializers import StatusSerializer
+
+
+# MAKE API VIEWS USING GENERICS AND MIXINS
+
+# ListCreateAPIView
+#     ├── CreateModelMixin (for POST)
+#     ├── ListModelMixin (for GET)
+#     └── GenericAPIView (base view logic)
+
+class StatusListCreateView(generics.ListCreateAPIView):
+    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+
+    # POST requests to create a new status.
+    def post(self, request, *arg, **kwargs):
+        return self.create(request, *arg, **kwargs)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# GENERAL WAY TO MAKE API VIEWS
+
+# Way 1
+# class StatusListView(APIView):
+#     """
+#     Handle GET requests to retrieve all statuses.
+
+#     This view returns a list of all status entries from the database.
+#     It uses the StatusSerializer to serialize the data.
+
+#     Example:
+#         GET /api/status/
+#     """
+
+#     def get(self, request):
+#         """
+#         Retrieve all status objects.
+
+#         Args:
+#             request: The HTTP request object.
+
+#         Returns:
+#             Response: A list of serialized status data.
+#         """
+#         all_status = Status.objects.all()
+#         serializer = StatusSerializer(all_status, many=True)
+#         return Response(serializer.data)
+
 
 
 class StatusView(APIView):
@@ -35,32 +96,6 @@ class StatusView(APIView):
         status = get_object_or_404(Status, pk=id)
         serializer = StatusSerializer(status)
         return Response(serializer.data)
-
-
-# class StatusListView(APIView):
-#     """
-#     Handle GET requests to retrieve all statuses.
-
-#     This view returns a list of all status entries from the database.
-#     It uses the StatusSerializer to serialize the data.
-
-#     Example:
-#         GET /api/status/
-#     """
-
-#     def get(self, request):
-#         """
-#         Retrieve all status objects.
-
-#         Args:
-#             request: The HTTP request object.
-
-#         Returns:
-#             Response: A list of serialized status data.
-#         """
-#         all_status = Status.objects.all()
-#         serializer = StatusSerializer(all_status, many=True)
-#         return Response(serializer.data)
 
 
 # List, Create API View (Part 2)

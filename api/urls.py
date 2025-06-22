@@ -1,17 +1,28 @@
 from django.urls import path
-from status.views import (StatusView, StatusListView, StatusCreateView, 
-                          StatusDetailsView, StatusUpdateView, StatusDeleteView)
+
+# FOR MIXINS FOR CRUD OPERATIONS
+from status.views import StatusListCreateView
+
+
+# USING GENRAL WAY AND GENRIC VIEWS FOR CRUD OPERATIONS
+# from status.views import (StatusView, StatusListView, StatusCreateView, 
+#                           StatusDetailsView, StatusUpdateView, StatusDeleteView)
+
+
 
 
 urlpatterns = [
-    # path('status/', StatusListView.as_view()), # USED APIVIEW
+    # USING MIXINS FOR CRUD OPERATIONS
+    path('status/', StatusListCreateView.as_view()),  # List and Create
     
-    path('status/', StatusListView.as_view()), # Extends APIview to generic
-    path('status/<int:id>/', StatusView.as_view()),
-    path('status/create/', StatusCreateView.as_view()),
-    path('status/details/<int:pk>/', StatusDetailsView.as_view()),
-    path('status/update/<int:pk>/', StatusUpdateView.as_view()),
-    path('status/delete/<int:pk>/', StatusDeleteView.as_view()),
+    
+    # USING GENERICS FOR CRUD OPERATIONS
+    # path('status/', StatusListView.as_view()), 
+    # path('status/<int:id>/', StatusView.as_view()),
+    # path('status/create/', StatusCreateView.as_view()),
+    # path('status/details/<int:pk>/', StatusDetailsView.as_view()),
+    # path('status/update/<int:pk>/', StatusUpdateView.as_view()),
+    # path('status/delete/<int:pk>/', StatusDeleteView.as_view()),
 ]
 
 
