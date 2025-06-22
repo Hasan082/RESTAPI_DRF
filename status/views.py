@@ -16,6 +16,13 @@ from .serializers import StatusSerializer
 #     └── GenericAPIView (base view logic)
 
 class StatusListCreateView(generics.ListCreateAPIView):
+    """
+    Handle GET and POST requests for status entries.
+    This view allows users to retrieve a list of all statuses or create a new status.
+    Example:
+        GET /api/status/ - Retrieve all statuses
+        POST /api/status/ - Create a new status        
+    """
     queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
     serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
 
