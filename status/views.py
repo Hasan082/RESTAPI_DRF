@@ -1,6 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import generics, mixins
+from rest_framework import generics, mixins, parsers
 from rest_framework.response import Response
 
 from .models import Status
@@ -29,6 +29,7 @@ class StatusListCreateView(generics.ListCreateAPIView):
     serializer_class = (
         StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
     )
+    parser_classes = [parsers.FormParser, parsers.MultiPartParser]  # Allow file uploads
 
 
 class StatusDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
@@ -48,7 +49,7 @@ class StatusDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = (
         StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
     )
-
+    parser_classes = [parsers.FormParser, parsers.MultiPartParser]
 
 
 
