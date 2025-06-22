@@ -1,7 +1,7 @@
 from django.urls import path
 
 # FOR MIXINS FOR CRUD OPERATIONS
-from status.views import StatusListCreateView
+from status.views import StatusListCreateView, StatusDetailUpdateDestroyView
 
 
 # USING GENRAL WAY AND GENRIC VIEWS FOR CRUD OPERATIONS
@@ -14,6 +14,7 @@ from status.views import StatusListCreateView
 urlpatterns = [
     # USING MIXINS FOR CRUD OPERATIONS
     path('status/', StatusListCreateView.as_view()),  # List and Create
+    path('status/<int:pk>', StatusDetailUpdateDestroyView.as_view()),  # WITH PK for Get, Put, Patch, Delete
     
     
     # USING GENERICS FOR CRUD OPERATIONS

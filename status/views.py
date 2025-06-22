@@ -1,7 +1,6 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import generics, mixins
-from rest_framework import status
 from rest_framework.response import Response
 
 from .models import Status
@@ -15,33 +14,56 @@ from .serializers import StatusSerializer
 #     ├── ListModelMixin (for GET)
 #     └── GenericAPIView (base view logic)
 
-class StatusListCreateView(generics.ListCreateAPIView):
+
+class StatusListCreateView(generics.ListCreateAPIView, mixins.CreateModelMixin):
     """
     Handle GET and POST requests for status entries.
     This view allows users to retrieve a list of all statuses or create a new status.
     Example:
         GET /api/status/ - Retrieve all statuses
-        POST /api/status/ - Create a new status        
+        POST /api/status/ - Create a new status
     """
-    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = (
+        StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+    )
 
     # POST requests to create a new status.
     def post(self, request, *arg, **kwargs):
         return self.create(request, *arg, **kwargs)
 
 
+class StatusDetailUpdateDestroyView(
+    generics.RetrieveAPIView, mixins.UpdateModelMixin, mixins.DestroyModelMixin
+):
+    """
+    Handle GET, PUT, PATCH, and DELETE requests for a specific status.
+    This view allows users to retrieve, update, or delete a status entry by its primary key (pk).
+    Example:
+        GET /api/status/detail/1/ - Retrieve status with ID 1
+        PUT /api/status/update/1/ - Update status with ID 1
+        PATCH /api/status/update/1/ - Partially update status with ID 1
+        DELETE /api/status/delete/1/ - Delete status with ID 1
+    """
 
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = (
+        StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+    )
 
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
-
-
-
-
-
-
-
-
+    def put(self, request, *args, **kwargs):
+        return self.update(request, *args, **kwargs)
+    
+    def patch(self, request, *args, **kwargs): 
+        return self.partial_update(request, *args, **kwargs)
 
 
 
@@ -74,11 +96,10 @@ class StatusListCreateView(generics.ListCreateAPIView):
 #         return Response(serializer.data)
 
 
-
 class StatusView(APIView):
     """
     Handle GET requests to retrieve a single status by ID.
-    
+
     This view returns the status object corresponding to the given ID.
     If the status is not found, a 404 error is automatically raised.
 
@@ -107,12 +128,14 @@ class StatusView(APIView):
 
 # List, Create API View (Part 2)
 
+
 class StatusListView(generics.ListAPIView):
-    queryset = Status.objects.all() # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
     serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
-    
-    
-    
+
+
 class StatusCreateView(generics.CreateAPIView):
     """
     Handle POST requests to create a new status.
@@ -123,11 +146,13 @@ class StatusCreateView(generics.CreateAPIView):
     Example:
         POST /api/status/
     """
-    
-    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = StatusSerializer # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
-    
-    
+
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
+
+
 class StatusDetailsView(generics.RetrieveUpdateDestroyAPIView):
     """
     Handle GET, PUT, PATCH, and DELETE requests for a specific status.
@@ -138,11 +163,13 @@ class StatusDetailsView(generics.RetrieveUpdateDestroyAPIView):
     Example:
         GET /api/status/detail/1/
     """
-    
-    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = StatusSerializer # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
-    
-    
+
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
+
+
 class StatusUpdateView(generics.UpdateAPIView):
     """
     Handle PUT and PATCH requests to update a specific status.
@@ -154,11 +181,13 @@ class StatusUpdateView(generics.UpdateAPIView):
         PUT /api/status/update/1/
         PATCH /api/status/update/1/
     """
-    
-    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = StatusSerializer # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
-    
-    
+
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
+
+
 class StatusDeleteView(generics.DestroyAPIView):
     """
     Handle DELETE requests to remove a specific status.
@@ -169,6 +198,8 @@ class StatusDeleteView(generics.DestroyAPIView):
     Example:
         DELETE /api/status/delete/1/
     """
-    
-    queryset = Status.objects.all()  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = StatusSerializer # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
+
+    queryset = (
+        Status.objects.all()
+    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+    serializer_class = StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer' or any other variation
