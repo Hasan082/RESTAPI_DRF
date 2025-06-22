@@ -1,12 +1,34 @@
 from django.shortcuts import get_object_or_404
 from rest_framework.views import APIView
-from rest_framework import generics, mixins, parsers
+from rest_framework import generics, mixins, parsers, viewsets
 from rest_framework.response import Response
 
 from .models import Status
 from .serializers import StatusSerializer
 
 
+
+# We can  Router(urls.py) and only onbe view to handle all CRUD operations, but here we are using
+class StatusViewSet(viewsets.ModelViewSet):
+    """
+    A viewset for viewing and editing status instances.
+    
+    This viewset provides the standard actions for CRUD operations:
+    - List all statuses
+    - Create a new status
+    - Retrieve a specific status by ID
+    - Update a specific status by ID
+    - Delete a specific status by ID
+    """
+    queryset = Status.objects.all()
+    serializer_class = StatusSerializer
+    parser_classes = [parsers.FormParser, parsers.MultiPartParser]  # Allow file uploads
+
+
+
+
+    
+# generic views and mixins to demonstrate how to create API views for CRUD operations.
 # MAKE API VIEWS USING GENERICS AND MIXINS
 
 # ListCreateAPIView
@@ -14,42 +36,42 @@ from .serializers import StatusSerializer
 #     ├── ListModelMixin (for GET)
 #     └── GenericAPIView (base view logic)
 
-class StatusListCreateView(generics.ListCreateAPIView):
-    """
-    Handle GET and POST requests for status entries.
-    This view allows users to retrieve a list of all statuses or create a new status.
-    Example:
-        GET /api/status/ - Retrieve all statuses
-        POST /api/status/ - Create a new status
-    """
+# class StatusListCreateView(generics.ListCreateAPIView):
+#     """
+#     Handle GET and POST requests for status entries.
+#     This view allows users to retrieve a list of all statuses or create a new status.
+#     Example:
+#         GET /api/status/ - Retrieve all statuses
+#         POST /api/status/ - Create a new status
+#     """
     
-    queryset = (
-        Status.objects.all()
-    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = (
-        StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
-    )
-    parser_classes = [parsers.FormParser, parsers.MultiPartParser]  # Allow file uploads
+#     queryset = (
+#         Status.objects.all()
+#     )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+#     serializer_class = (
+#         StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+#     )
+#     parser_classes = [parsers.FormParser, parsers.MultiPartParser]  # Allow file uploads
 
 
-class StatusDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
-    """
-    Handle GET, PUT, PATCH, and DELETE requests for a specific status.
-    This view allows users to retrieve, update, or delete a status entry by its primary key (pk).
-    Example:
-        GET /api/status/detail/1/ - Retrieve status with ID 1
-        PUT /api/status/update/1/ - Update status with ID 1
-        PATCH /api/status/update/1/ - Partially update status with ID 1
-        DELETE /api/status/delete/1/ - Delete status with ID 1
-    """
+# class StatusDetailUpdateDestroyView(generics.RetrieveUpdateDestroyAPIView):
+#     """
+#     Handle GET, PUT, PATCH, and DELETE requests for a specific status.
+#     This view allows users to retrieve, update, or delete a status entry by its primary key (pk).
+#     Example:
+#         GET /api/status/detail/1/ - Retrieve status with ID 1
+#         PUT /api/status/update/1/ - Update status with ID 1
+#         PATCH /api/status/update/1/ - Partially update status with ID 1
+#         DELETE /api/status/delete/1/ - Delete status with ID 1
+#     """
 
-    queryset = (
-        Status.objects.all()
-    )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
-    serializer_class = (
-        StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
-    )
-    parser_classes = [parsers.FormParser, parsers.MultiPartParser]
+#     queryset = (
+#         Status.objects.all()
+#     )  # MUST BE WORD 'queryset' NOT 'query_set' or any other variation
+#     serializer_class = (
+#         StatusSerializer  # MUST BE WORD 'serializer_class' NOT 'serializer'
+#     )
+#     parser_classes = [parsers.FormParser, parsers.MultiPartParser]
 
 
 
