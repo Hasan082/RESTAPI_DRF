@@ -19,7 +19,6 @@ project-root/
 
 ````
 
----
 
 ## 📦 Features
 
