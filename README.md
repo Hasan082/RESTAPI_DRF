@@ -46,8 +46,6 @@ Install all dependencies:
 pip install -r requirements.txt
 ```
 
----
-
 ## 🔧 Run Locally
 
 1. **Clone the project**
@@ -83,7 +81,6 @@ python manage.py runserver
 
 6. Access your API at: `http://127.0.0.1:8000/api/status/`
 
----
 
 ## API Endpoints
 
