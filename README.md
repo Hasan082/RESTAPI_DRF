@@ -98,7 +98,6 @@ python manage.py runserver
 
 > Depending on the registered URL routes, you may see paths like `/api/status/detail/<id>/`, `/update/<id>/`, or `/delete/<id>/` for class-based views built with `RetrieveAPIView`, `UpdateAPIView`, and `DestroyAPIView`.
 
----
 
 ## Demonstrated View Types
 
@@ -111,13 +110,11 @@ python manage.py runserver
 
 All of these are implemented in the `status/views.py` file with clear comments and usage examples.
 
----
 
 ## Authentication
 
 You can enable optional authentication (Token, Session, JWT) in your `settings.py`.
 
----
 
 ## Admin Panel
 
