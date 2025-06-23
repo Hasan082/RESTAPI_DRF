@@ -11,7 +11,7 @@ This project is a **RESTful API** built with **Django** and **Django REST Framew
 It includes a `Status` app for managing status entries (or similar content types), showcasing the power and flexibility of DRF.
 
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 project-root/
@@ -23,7 +23,7 @@ project-root/
 ```
 
 
-## ✅ Features
+## Features
 
 * ✔️ Full CRUD for `Status` model
 * ✔️ DRF `ModelViewSet` with router support
@@ -35,7 +35,7 @@ project-root/
 * ✔️ Ready for deployment
 
 
-## 📦 Requirements
+## Requirements
 
 Install all dependencies:
 
@@ -43,7 +43,7 @@ Install all dependencies:
 pip install -r requirements.txt
 ```
 
-## 🔧 Run Locally
+## Run Locally
 
 1. **Clone the project**
 
