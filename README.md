@@ -85,7 +85,7 @@ python manage.py runserver
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 | Method | Endpoint            | Description                   |
 | ------ | ------------------- | ----------------------------- |
@@ -100,39 +100,38 @@ python manage.py runserver
 
 ---
 
-## 🧪 Demonstrated View Types
+## Demonstrated View Types
 
-* ✅ `ModelViewSet`
-* ✅ `ListCreateAPIView`
-* ✅ `RetrieveUpdateDestroyAPIView`
-* ✅ `GenericAPIView` with `mixins`
-* ✅ Custom `APIView` subclasses
-* ✅ Separate views for List, Create, Update, Delete (CRUD granularity)
+* `ModelViewSet`
+* `ListCreateAPIView`
+* `RetrieveUpdateDestroyAPIView`
+* `GenericAPIView` with `mixins`
+* Custom `APIView` subclasses
+* Separate views for List, Create, Update, Delete (CRUD granularity)
 
 All of these are implemented in the `status/views.py` file with clear comments and usage examples.
 
 ---
 
-## 🔐 Authentication
+## Authentication
 
 You can enable optional authentication (Token, Session, JWT) in your `settings.py`.
 
 ---
 
-## 🎛 Admin Panel
+## Admin Panel
 
 Visit the admin interface at:
 `http://127.0.0.1:8000/admin/`
 
----
 
-## 📘 License
+
+## License
 
 This project is licensed under the [MIT License](LICENSE).
 
----
 
-## 🙏 Acknowledgements
+## Acknowledgements
 
 * [Django](https://www.djangoproject.com/)
 * [Django REST Framework](https://www.django-rest-framework.org/)
