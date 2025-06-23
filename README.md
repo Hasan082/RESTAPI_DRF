@@ -10,7 +10,6 @@ This project is a **RESTful API** built with **Django** and **Django REST Framew
 
 It includes a `Status` app for managing status entries (or similar content types), showcasing the power and flexibility of DRF.
 
----
 
 ## 📁 Project Structure
 
@@ -23,7 +22,6 @@ project-root/
 └── db.sqlite3             # Default SQLite database
 ```
 
----
 
 ## ✅ Features
 
@@ -36,7 +34,6 @@ project-root/
 * ✔️ Clean and extensible code
 * ✔️ Ready for deployment
 
----
 
 ## 📦 Requirements
 
